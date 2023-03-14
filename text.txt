@@ -1,0 +1,10 @@
+ if request.method == 'POST':
+        id = request.POST.get('company')
+        company_id = int(id)
+        company = Company.objects.get(id=company_id)
+        amount = request.POST.get('amount')
+        date_str = request.POST.get('date')
+
+        date = timezone.datetime.strptime(date_str, '%Y-%m-%d').date()
+        energy_consumption = EnergyConsumption(company=company,amount=amount,date=date)
+        energy_consumption.save()
